@@ -3,7 +3,8 @@ import java.util.Arrays;
 import java.util.Scanner;
 public class Test_1 {
     public static int func(int[] arr, int n){
-        int[] tmp = arr;
+        //输入多少数字，就拷贝多少个数字
+        int[] tmp = Arrays.copyOf(arr, n);
         //先来排序
         Arrays.sort(tmp);
         //重复的肯定在一起
