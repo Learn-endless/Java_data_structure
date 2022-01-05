@@ -92,26 +92,30 @@ public class SingleLinkedList {
         if(this.head == null){
             return;
         }
-        ListNode cur = this.head.next;
         //首先处理一下是不是头节点
         if(this.head.val == key){
             this.head = this.head.next;
             return;
         }
-        ListNode index = this.head;
-        while(cur != null){
-            if(cur.val == key){
+        //创建两个引用从头节点开始一前一后指向链表的节点
+        ListNode cur = this.head;
+        ListNode prev = this.head.next;
+        while(prev != null){
+            //判断前节点的val值是否是key
+            if(prev.val == key){
                 //找到了第一个,进行处理
-                index.next = cur.next;
+                cur.next = prev.next;
                 return;
             }else{
+                //不是，继续往后走
+                prev = prev.next;
                 cur = cur.next;
-                index = index.next;
             }
         }
     }
     //删除所有值为key的节点
     public void removeAllKey(int key){
+        //判空
         if(this.head == null){
             return;
         }
