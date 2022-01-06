@@ -1,5 +1,4 @@
 package DoubleLinkedListTwo;
-
 /**
  * 测试双链表
  */
@@ -17,7 +16,7 @@ public class TestDoubleLinkedList {
 //        d.display();
 //        System.out.println(d.contains(5));
 //        d.remove(5);
-//        d.removeAllKey(1);
+//        d.removeAll(1);
 //        d.display();
 //        System.out.println(d.size());
         d.clear();

@@ -3,7 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="7b5c215e-eb18-4a87-bf23-1201f9d0a3dc" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/SingleLinkedList/SingleLinkedList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/SingleLinkedList/SingleLinkedList.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DoubleLinkedListTwo/DoubleLinkedList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DoubleLinkedListTwo/DoubleLinkedList.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DoubleLinkedListTwo/ListNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DoubleLinkedListTwo/ListNode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DoubleLinkedListTwo/TestDoubleLinkedList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DoubleLinkedListTwo/TestDoubleLinkedList.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,9 +36,10 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../2021_12_26" />
     <property name="nodejs_package_manager_path" value="npm" />
   </component>
-  <component name="RunManager" selected="Application.TestSingleLinkedList">
+  <component name="RunManager" selected="Application.TestDoubleLinkedList">
     <configuration name="TestDoubleLinkedList" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="DoubleLinkedListTwo.TestDoubleLinkedList" />
       <module name="2022_01_04" />
@@ -63,21 +66,23 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
           <option name="containerStateName" value="" />
         </value>
       </option>
-      <option name="TEST_OBJECT" value="class" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <properties />
+      <listeners />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.TestSingleLinkedList" />
         <item itemvalue="Application.TestDoubleLinkedList" />
+        <item itemvalue="Application.TestSingleLinkedList" />
       </list>
     </recent_temporary>
   </component>
@@ -92,6 +97,7 @@
       <workItem from="1641274312121" duration="4121000" />
       <workItem from="1641300813954" duration="4439000" />
       <workItem from="1641353118182" duration="6698000" />
+      <workItem from="1641449816414" duration="5032000" />
     </task>
     <servers />
   </component>

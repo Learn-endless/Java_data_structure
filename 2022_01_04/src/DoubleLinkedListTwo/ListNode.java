@@ -1,5 +1,4 @@
 package DoubleLinkedListTwo;
-
 /**
  * 双链表的节点
  */

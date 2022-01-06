@@ -105,10 +105,12 @@ public class DoubleLinkedList {
             if(cur.val == key){
                 //判断是否是最后一个节点
                 if(cur.next == null){
+                    //第一次出现是最后一个节点
                     cur.prev.next = null;
                     cur.prev = null;
                     return;
                 }else{
+                    //第一次出现不是最后一个节点
                     cur.prev.next = cur.next;
                     cur.next.prev = cur.prev;
                     return;
@@ -119,19 +121,24 @@ public class DoubleLinkedList {
         }
     }
     //删除所有值为key的节点
-    public void removeAllKey(int key){
+    public void removeAll(int key){
         //判断是否为空链表
         if(this.head == null){
             return;
         }
         //先处理正常情况
         ListNode cur = this.head.next;
+        //循环遍历链表
         while(cur != null){
+            //找到了
             if(cur.val == key){
+                //先判断是不是尾节点
                 if(cur.next == null){
+                    //是尾节点，进行处理
                     cur.prev.next = null;
                     cur.prev = null;
                 }else{
+                    //不是尾结点，就这样处理
                     cur.prev.next = cur.next;
                     cur.next.prev = cur.prev;
                 }
@@ -169,10 +176,14 @@ public class DoubleLinkedList {
     //销毁双链表
     public void clear(){
         ListNode cur = this.head;
+        //直接使用head
         while(this.head != null) {
+            //记录下一个节点的地址
             cur = cur.next;
+            //将next和prev都置null
             this.head.prev = null;
             this.head.next = null;
+            //更新head的指向，继续处理下一个节点
             this.head = cur;
         }
     }
