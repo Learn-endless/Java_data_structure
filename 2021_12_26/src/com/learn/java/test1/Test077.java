@@ -9,7 +9,7 @@ public class Test077 {
     public static ListNode fenGe(ListNode cur){
         ListNode slow = cur;
         ListNode fast = cur;
-        while(fast != null && fast.getNext().getNext() != null){
+        while(fast.getNext() != null && fast.getNext().getNext() != null){
             slow = cur.getNext();            //走一步
             fast = cur.getNext().getNext();  //走两步
         }
@@ -58,10 +58,10 @@ public class Test077 {
 
     public static void main(String[] args) {
         MyLinkedList myLinkedList = new MyLinkedList();
-        myLinkedList.addLast(9);
-        myLinkedList.addLast(6);
-        myLinkedList.addLast(6);
-        myLinkedList.addLast(6);
+        myLinkedList.addLast(4);
+        myLinkedList.addLast(2);
+        myLinkedList.addLast(1);
+        myLinkedList.addLast(3);
         myLinkedList.display();
 
         System.out.println("\n------------------------------");

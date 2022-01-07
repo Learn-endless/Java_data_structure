@@ -1,7 +1,7 @@
 package com.learn.java.test1;
 class ListNode{
-    private final int val;
-    private ListNode next;
+    public final int val;
+    public ListNode next;
     public ListNode(int data){
         this.val = data;
     }
@@ -22,7 +22,7 @@ class ListNode{
  * 自己写一个单链表
  */
 public class MyLinkedList {
-    private ListNode head;
+    public ListNode head;
 
     //尾插法
     public void addLast(int data){
@@ -47,6 +47,7 @@ public class MyLinkedList {
             System.out.print(cur.getVal()+" ");
             cur = cur.getNext();
         }
+        System.out.println();
     }
     //使用节点显示链表
     public void displayMyLinkedList(ListNode cur){
@@ -54,6 +55,7 @@ public class MyLinkedList {
             System.out.print(cur.getVal()+" ");
             cur = cur.getNext();
         }
+        System.out.println();
     }
     //获取头节点
     public ListNode getHead(){
