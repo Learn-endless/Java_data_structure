@@ -5,6 +5,7 @@
  * Data: 2022-01-20
  * Time: 11:14
  */
+//这是二叉树的节点类
 class TreeNode{
     public int val;
     public TreeNode left;
