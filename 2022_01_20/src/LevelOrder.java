@@ -16,7 +16,7 @@ import java.util.Queue;
  * 给你二叉树的根节点 root ，返回其节点值的 层序遍历 。 （即逐层地，从左到右访问所有节点）。
  */
 public class LevelOrder {
-    //方法一：使用List<List<Integer>>返回
+    //二叉树的层序遍历方法一：使用List<List<Integer>>返回
     public static List<List<Integer>> levelOrder1(TreeNode root) {
         //用来存放整个二叉树
         List<List<Integer>> total = new ArrayList<>();
@@ -55,7 +55,7 @@ public class LevelOrder {
         return total;
     }
 
-    //方法二：直接遍历打印结果
+    //二叉树的方法二：直接遍历打印结果
     public static void levelOrder2(TreeNode root){
         Queue<TreeNode> qu = new LinkedList<>();
         //先判断是否为null
