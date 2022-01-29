@@ -52,4 +52,30 @@ public class TestDemo {
         //最后返回数据
         return list;
     }
+	
+	//二叉树数中序遍历，非递归完成
+    public List<Integer> preorderTraversal(TreeNode root) {
+        //通过栈来完成
+        Stack<TreeNode> stack = new Stack<>();
+        //将遍历好的数据用List集合来存储
+        List<Integer> list = new ArrayList<>();
+        TreeNode cur = root;
+        //循环
+        while (cur != null || !stack.isEmpty()) {
+            //一直往左子树走，走到空跳出循环
+            while (cur != null) {
+                //将该节点放到栈中
+                stack.push(cur);
+                //往左走
+                cur = cur.left;
+            }
+            //左边为空了，通过弹出栈顶元素往右边走
+            TreeNode top = stack.pop();
+		    //找到一个就放到集合中
+            list.add(top.val);
+            cur = top.right;
+        }
+        //最后返回数据
+        return list;
+    }
 }
