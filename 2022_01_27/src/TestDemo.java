@@ -54,7 +54,7 @@ public class TestDemo {
     }
 	
 	//二叉树数中序遍历，非递归完成
-    public List<Integer> preorderTraversal(TreeNode root) {
+    public List<Integer> inorderTraversal(TreeNode root) {
         //通过栈来完成
         Stack<TreeNode> stack = new Stack<>();
         //将遍历好的数据用List集合来存储
@@ -76,6 +76,42 @@ public class TestDemo {
             cur = top.right;
         }
         //最后返回数据
+        return list;
+    }
+	
+	//二叉树后序遍历，非递归完成
+	public List<Integer> postorderTraversal(TreeNode root) {
+        //使用一个List集合来存放后序遍历
+        List<Integer> list = new ArrayList<>();
+        //通过栈来进行处理
+        Stack<TreeNode> stack = new Stack<>();
+        TreeNode cur = root;
+        //记录上一次处理的节点
+        TreeNode flg = null;
+        //当前节点不为空或者栈不为空时进行循环
+        while(cur != null || !stack.isEmpty()){
+            //一直往左走，走到空为止
+            while(cur != null){
+                //找到一个就放到栈中
+                stack.push(cur);
+                cur = cur.left;
+            }
+            //查看一下当前栈顶节点
+            TreeNode top = stack.peek();
+            //如果当前栈顶节点的右子树是null或者右子树已经在上一次进行处理过了
+            //就进入if语句，进行处理当前节点
+            if(top.right == null || top.right == flg){
+                //将val的值放到List集合中
+                list.add(top.val);
+                //标记一下处理的节点
+                flg = top;
+                //出栈
+                stack.pop();
+            }else{
+                //往右子树走
+                cur = top.right;
+            }
+        }
         return list;
     }
 }
