@@ -9,6 +9,9 @@ import java.util.Stack;
  * Data: 2022-01-27
  * Time: 23:42
  */
+ /**
+ *这是一个二叉树的节点类
+ */
 class TreeNode {
       int val;
       TreeNode left;
