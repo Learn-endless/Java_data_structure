@@ -22,11 +22,11 @@ public class MyHeap {
     }
 
     //想下调整方法
-    private void shiftDown(int parent){
+    private void shiftDown(int parent, int size){
         int child = parent*2+1;
-        while(child < this.userSize){
+        while(child < size){
             //ret始终指向最大的那个孩子
-            if(child+1 < this.userSize && this.elem[child] < this.elem[child+1]){
+            if(child+1 < size && this.elem[child] < this.elem[child+1]){
                 child++;
             }
             //判断孩子节点与父亲节点的大小
@@ -49,7 +49,7 @@ public class MyHeap {
 
         for(int i = (this.userSize-2)/2; i >= 0; i--){
             //调整
-            shiftDown(i);
+            shiftDown(i, this.userSize);
         }
     }
     //添加元素
@@ -97,7 +97,7 @@ public class MyHeap {
         //userSize--
         this.userSize--;
         //调整下标为0的这棵树
-        shiftDown(0);
+        shiftDown(0,this.userSize);
         return val;
     }
     //判断优先级队列是否为空
@@ -110,5 +110,14 @@ public class MyHeap {
             throw new RuntimeException("优先级队列为空！");
         }
         return this.elem[0];
+    }
+
+    public void headSort(){
+        int size = this.userSize-1;
+        while(size > 0){
+            exchange(0,size);
+            shiftDown(0, size);
+            size--;
+        }
     }
 }
