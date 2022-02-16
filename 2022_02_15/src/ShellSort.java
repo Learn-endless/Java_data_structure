@@ -8,8 +8,18 @@ import java.util.Arrays;
  * Time: 19:00
  */
 public class ShellSort {
-    //希尔排序：缩小增量法
-    //对直接插入排序进行优化
+    /**
+     * 希尔排序：缩小增量法
+     * 对直接插入排序进行优化
+     * 时间复杂度[和增量有关]：O(N^1.3 - N^1.5)
+     * 空间复杂度：O(1)
+     * 稳定性：不稳定的
+     *
+     * 如果一个排序，在过程中发生了跳跃式的交换，那么这个排序就是不稳定的
+     *
+     * @param array 待排序数组
+     * @param gap 分成的组数
+     */
     public static void shell(int[] array, int gap){
         for (int i = gap; i < array.length; i++) {
             int tmp = array[i];
@@ -24,7 +34,8 @@ public class ShellSort {
             array[j+gap] = tmp;
         }
     }
-    
+
+    //分组
     public static void shellSort(int[] array){
         int gap = array.length/2;
         while(gap > 1){
