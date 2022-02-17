@@ -174,7 +174,7 @@ public class TestSort {
      * 空间复杂度：O(N)
      * 稳定性：不稳定的
      *
-     * @param array
+     * @param array 待排序数组
      */
     public static void quickSort(int[] array){
         quick(array,0,array.length-1);
