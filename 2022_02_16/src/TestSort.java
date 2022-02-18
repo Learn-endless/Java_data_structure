@@ -1,5 +1,6 @@
 import java.util.Arrays;
 import java.util.Random;
+import java.util.Stack;
 
 /**
  * Created with IntelliJ IDEA.
@@ -170,27 +171,194 @@ public class TestSort {
 
     /**
      * 快速排序
-     * 时间复杂度：
-     * 空间复杂度：O(N)
+     * 时间复杂度：O(N*logN)  两边的数据均匀分割的情况下
+     * 最坏的情况下:O(N^2)    数据有序或者是逆序
+     * 空间复杂度：O(logN)
+     * 最坏的情况下O(N)       是一颗单分支的树时
      * 稳定性：不稳定的
      *
      * @param array 待排序数组
      */
     public static void quickSort(int[] array){
+        //递归实现快速排序
+//        quick1(array,0,array.length-1);
+        //非递归实现
         quick(array,0,array.length-1);
     }
 
-    private static void quick(int[] array, int start, int end){
+    /**
+     * 合并两个数组
+     * @param arrayA 有序数组
+     * @param arrayB 有序数组
+     * @return
+     */
+    public static int[] mergeArray(int[] arrayA,int[] arrayB){
+        if(arrayA == null){
+            return arrayB;
+        }else if(arrayB == null){
+            return arrayA;
+        }
+
+        int i = 0;
+        int j = 0;
+        int[] array = new int[arrayA.length+arrayB.length];
+        int index = 0;
+
+        while(i < arrayA.length && j < arrayB.length){
+            //比较当前的两个数，将小的数放到array中
+            if(arrayA[i] <= arrayB[j]){
+                array[index++] = arrayA[i++];
+            }else{
+                array[index++] = arrayB[j++];
+            }
+        }
+        //处理 arrayA 长度大于 arrayB 的情况
+        while(i < arrayA.length){
+            array[index++] = arrayA[i++];
+        }
+        //出来 arrayB 长度大于 arrayA 的情况
+        while(j < arrayB.length){
+            array[index++] = arrayB[j++];
+        }
+        return array;
+    }
+
+    public static void main(String[] args) {
+//        int[] data = {10,99,87,100,45,86,77,99,98,63};
+//        selectSort1(data);
+//        heapSort(data);
+//        quickSort(data);
+        int[] A = {1,2,3,4,5,6};
+        int[] B = {3,4,5,6,7,8,9,10};
+        System.out.println(Arrays.toString(mergeArray(A,B)));
+    }
+
+
+    //非递归实现
+    private static void quick(int[] array,int start,int end){
+        Stack<Integer> stack = new Stack<>();
+        /*
+        对基准的优化：
+        使用三数取中法
+         */
+        int midIndex = findMidIndex(array,start,end);
+        //交换 中间数 与 最左边的数
+        int tmp = array[midIndex];
+        array[midIndex] = array[start];
+        array[start] = tmp;
+        //找基准
+        int pivotIndex = pivotIndex(array,start,end);
+        if(pivotIndex > start+1){
+            //说明左边至少有两个数据，放下标
+            stack.push(start);
+            stack.push(pivotIndex-1);
+        }
+        if(pivotIndex < end-1){
+            //说明右边至少也有两个数据，放下标
+            stack.push(pivotIndex+1);
+            stack.push(end);
+        }
+        while(!stack.isEmpty()){
+            end = stack.pop();
+            start = stack.pop();
+            /*
+            对基准的优化：
+            使用三数取中法
+            */
+            midIndex = findMidIndex(array,start,end);
+            //交换 中间数 与 最左边的数
+            tmp = array[midIndex];
+            array[midIndex] = array[start];
+            array[start] = tmp;
+            //找基准
+            pivotIndex = pivotIndex(array,start,end);
+            if(pivotIndex > start+1){
+                //说明左边至少有两个数据，放下标
+                stack.push(start);
+                stack.push(pivotIndex-1);
+            }
+            if(pivotIndex < end-1){
+                //说明右边至少也有两个数据，放下标
+                stack.push(pivotIndex+1);
+                stack.push(end);
+            }
+        }
+    }
+
+    //递归实现快速排序
+    private static void quick1(int[] array, int start, int end){
         //递归结束条件
         if(start >= end){
             return;
         }
+        /*
+        对快速排序进行优化：
+        使用一个门阀，当数据递归到达一个数量时，使用直接插入排序进行处理。
+         */
+        if(end-start+1 < 5000){
+            insertSort(array,start,end);
+            //使用直接插入排序完成后，直接返回。
+            return;
+        }
+
+        /*
+        对基准的优化：
+        使用三数取中法
+         */
+        int midIndex = findMidIndex(array,start,end);
+        //交换 中间数 与 最左边的数
+        int tmp = array[midIndex];
+        array[midIndex] = array[start];
+        array[start] = tmp;
+
         //找基准
-        int pivotIndex = pivotIndex(array,start,end);
+        int pivotIndex = pivotIndex(array,start,end);   //默认在找基准时，去当前范围的start下标为基准后，当数据太大时，可能会出现栈溢出异常
         //递归左边
         quick(array,start,pivotIndex-1);
         //递归右边
         quick(array,pivotIndex+1,end);
+    }
+
+    /*
+    对快排进行优化的直接插入排序
+     */
+    private static void insertSort(int[] array,int start, int end){
+        for (int i = start+1; i <= end ; i++) {
+            int tmp = array[i];
+            int j = i-1;
+            for (; j >= start; j--) {
+                if(array[j] > tmp){
+                    array[j+1] = array[j];
+                }else{
+                    break;
+                }
+            }
+            array[j+1] = tmp;
+        }
+    }
+
+    //三数取中法，对取基准进行优化
+    private static int findMidIndex(int[] array,int start,int end){
+        //拿到中间下标，用减法防止数据溢出
+        int mid = start+((end - start)>>>1);
+        //分情况，找到中间的数
+        if(array[start] > array[end]){
+            if(array[mid] > array[start]){
+                return start;
+            }else if(array[mid] < array[end]){
+                return end;
+            }else{
+                return mid;
+            }
+        }else{
+            if(array[mid] < array[start]){
+                return start;
+            }else if(array[mid] > array[end]){
+                return end;
+            }else{
+                return mid;
+            }
+        }
     }
 
     //找基准(挖坑法)
@@ -217,14 +385,7 @@ public class TestSort {
     }
 
 
-    public static void main(String[] args) {
-        int[] data = {1,2,2,4,5,6,7,8,9,10,11};
-//        selectSort1(data);
-//        heapSort(data);
-        quickSort(data);
-        System.out.println(Arrays.toString(data));
-    }
-
+//-----------------------------------------------------------------------------------------
     //给一组有序序列，观察选择排序的排序时间
     public static void test1(int capacity){
         int[] data = new int[capacity];
@@ -234,7 +395,9 @@ public class TestSort {
         //开始排序的时间（毫秒）
         long start = System.currentTimeMillis();
         //selectSort(data);     //优化过的
-        selectSort1(data);      //没优化的
+        //selectSort1(data);      //没优化的
+        //快速排序
+        quickSort(data);
         //结束时的时间（毫秒）
         long end = System.currentTimeMillis();
         System.out.println(end - start);
@@ -255,9 +418,9 @@ public class TestSort {
         System.out.println(end - start);
     }
 
-    public static void main2(String[] args) {
-        test1(10_0000);
-        test2(10_0000);
+    public static void main1(String[] args) {
+        test1(100_0000);
+//        test2(10_0000);
         /*
         测试结果：
         虽然测试的比较粗糙，但还是可以明显看出优化过的在排序无序序列时还是更快些
