@@ -186,17 +186,127 @@ public class TestSort {
         quick(array,0,array.length-1);
     }
 
+
+    public static void main(String[] args) {
+//        int[] data = {10,99,87,100,45,86,77,99,98,63};
+//        selectSort1(data);
+//        heapSort(data);
+//        quickSort(data);
+//        int[] A = {1,2,3,4,5,6};
+//        int[] B = {3,4,5,6,7,8,9,10};
+        int[] data = {10,85,76,99,98,78,30,46,55,44,44};
+        mergeSort(data);
+        System.out.println(Arrays.toString(data));
+    }
+
+
     /**
-     * 合并两个数组
+     * 归并排序：
+     * 时间复杂度：O(N*logN) 每层的范围是 N ,每层的高度是 logN
+     * 空间复杂度：O(N)      tmp 的大小与 array 大小一致
+     * 稳定性：稳定的
+     * 冒泡、直接插入排序、归并 这三个是 稳定的 排序
+     * @param array 待排序序列
+     */
+    public static void mergeSort(int[] array){
+        //为了保持接口的统一，另外定义一个方法来进行递归（递归版本）
+//        mergeSortInternal(array,0,array.length-1);
+
+
+        //非递归版本
+        int nums = 1;  //每组元素的个数
+        while(nums < array.length){
+            //每次都要将整个数组遍历一遍
+            for (int i = 0; i < array.length; i += nums*2) {   //每次移动两倍的当前每组的元素个数
+                int left = i;
+                int mid = left+nums-1;                         //mid 为当前 left + nums - 1
+                //判断一下 mid 下标越界没有
+                if(mid >= array.length){
+                    mid = array.length-1;
+                }
+                int right = mid+nums;                          //right 为当前 mid + nums
+                //判断一下 right 是否越界
+                if(right >= array.length){
+                    right = array.length-1;
+                }
+                //下标都没有问题后，调用合并方法
+                merge(array,left,mid,right);
+            }
+            //每次合并后，下次每组元素的个数为前一次的两倍
+            nums *= 2;
+        }
+    }
+
+    /**
+     * 用来进行递归的方法
+     * @param array 待排序序列
+     * @param left 左下标
+     * @param right 右下标
+     */
+    private static void mergeSortInternal(int[] array,int left, int right){
+        //递归结束条件
+        if(left >= right){
+            return;
+        }
+        //求中间下标
+        int mid = left+((right-left) >>> 1);
+        //左递归
+        mergeSortInternal(array,left,mid);
+        //右递归
+        mergeSortInternal(array,mid+1,right);
+        //合并
+        merge(array,left, mid, right);
+
+    }
+
+    /**
+     * 合并方法
+     * @param array 源数组
+     * @param left 左下标
+     * @param mid 中间下标
+     * @param right 右下标
+     */
+    private static void merge(int[] array, int left, int mid, int right){
+        //用来存放当前合并后的序列
+        int[] tmp = new int[right-left+1];
+        //待合并的两个序列的范围
+        int i = left;
+        int j = mid+1;
+        //tmp的下标
+        int index = 0;
+        //先处理元素个数一致的部分
+        while(i <= mid && j <= right){
+            //将较小的一方放到 tmp 中
+            if(array[i] <= array[j]){
+                tmp[index++] = array[i++];
+            }else{
+                tmp[index++] = array[j++];
+            }
+        }
+        //处理第一个序列元素多于的部分
+        while(i <= mid){
+            tmp[index++] = array[i++];
+        }
+        //处理第二个序列元素多的部分
+        while(j <= right){
+            tmp[index++] = array[j++];
+
+        }
+        //最后将 tmp 中的数据拷贝到 array 对应的位置
+        System.arraycopy(tmp,0,array,left,tmp.length);
+    }
+
+    /**
+     * 合并两个有序数组
      * @param arrayA 有序数组
      * @param arrayB 有序数组
-     * @return
+     * @return 合并后的有序数组
      */
     public static int[] mergeArray(int[] arrayA,int[] arrayB){
-        if(arrayA == null){
-            return arrayB;
-        }else if(arrayB == null){
+        if(arrayB == null){
             return arrayA;
+        }else if(arrayA == null){
+            return arrayB;
         }
 
         int i = 0;
@@ -221,16 +331,6 @@ public class TestSort {
             array[index++] = arrayB[j++];
         }
         return array;
-    }
-
-    public static void main(String[] args) {
-//        int[] data = {10,99,87,100,45,86,77,99,98,63};
-//        selectSort1(data);
-//        heapSort(data);
-//        quickSort(data);
-        int[] A = {1,2,3,4,5,6};
-        int[] B = {3,4,5,6,7,8,9,10};
-        System.out.println(Arrays.toString(mergeArray(A,B)));
     }
 
 
