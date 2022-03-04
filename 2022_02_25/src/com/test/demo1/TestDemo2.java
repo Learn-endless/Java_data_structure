@@ -41,8 +41,8 @@ public class TestDemo2 {
     }
 
     public static void main(String[] args) {
-//        TestDemo2.Person person = new TestDemo2.Person();
-//        person.func();
+        TestDemo2.Person person = new TestDemo2.Person();
+        person.func();
         //访问静态内部类中的静态属性和方法时，可以直接用 内部类名.属性（方法） 就可以
         System.out.println(Person.phone);
         Person.function();
